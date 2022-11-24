@@ -1,0 +1,23 @@
+{
+  "name": "sheets-one-on-one-plugin",
+  "version": "1.0.0",
+  "description": "Google Sheets one on one meeting plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erenyener/sheets-one-on-one-plugin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erenyener/sheets-one-on-one-plugin/issues"
+  },
+  "homepage": "https://github.com/erenyener/sheets-one-on-one-plugin#readme",
+  "dependencies": {
+    "@types/google-apps-script": "^1.0.56",
+    "typescript": "^4.9.3"
+  }
+}

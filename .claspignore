@@ -1,0 +1,8 @@
+README.md
+.gitignore
+.clasp.json
+.package.json
+node_modules
+.jsconfig.json
+!build/main.js
+!appsscript.json
