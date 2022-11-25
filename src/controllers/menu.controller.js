@@ -27,8 +27,8 @@ function firstSetup() {
 
     const template = HtmlService.createTemplate(firstSetupHtml)
         .evaluate()
-        .setWidth(1100)
-        .setHeight(700);
+        .setWidth(600)
+        .setHeight(300);
 
     SpreadsheetApp.getUi().showModalDialog(template, 'First Setup');
 }
@@ -36,7 +36,8 @@ function firstSetup() {
 function isFirstSetupCompleted() {
     try {
         const settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.Settings);
-        return settingsSheet ? true : false;
+        const firstSetupCompleted = settingsSheet ? true : false;
+        return firstSetupCompleted;
 
     }
     catch (e) {
