@@ -64,6 +64,14 @@
         <div id="section3" data-id="3" style="display: none;" class="row">
             <div class="col">
                 <div class="mb-3">
+                    <button type="button" onclick="download('text/plain', 'csv.txt')" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Download your CSV Template and enter your people</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="section4" data-id="4" style="display: none;" class="row">
+            <div class="col">
+                <div class="mb-3">
                     <label for="customField" class="form-label">Import your data as CSV ?</label>
                     <input type="text" class="form-control" id="customField" placeholder="Team">
                 </div>
@@ -84,6 +92,20 @@
 <script>
 
     window.settings = {};
+
+    function download(mimeType, filename) {
+        var a = document.createElement('a')
+
+        const headers = ["name", ...window.settings.customFields];
+
+        const csv = `${headers}\n`;
+
+        var blob = new Blob([csv], {type: mimeType})
+        var url = URL.createObjectURL(blob)
+        a.setAttribute('href', url)
+        a.setAttribute('download', filename)
+        a.click()
+    }
 
     function onMultipleInputKeyDown(element) {
         if (event.key === 'Enter') {
