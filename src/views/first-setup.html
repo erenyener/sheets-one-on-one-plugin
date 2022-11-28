@@ -72,8 +72,7 @@
         <div id="section4" data-id="4" style="display: none;" class="row">
             <div class="col">
                 <div class="mb-3">
-                    <label for="customField" class="form-label">Import your data as CSV ?</label>
-                    <input type="text" class="form-control" id="customField" placeholder="Team">
+                    <input type="file" name="file" id="file"> 
                 </div>
             </div>
         </div>
@@ -92,6 +91,20 @@
 <script>
 
     window.settings = {};
+
+    function handleFileSelect() {
+        const reader = new FileReader()
+        reader.onload = handleFileLoad;
+        reader.readAsText(event.target.files[0])
+    };
+
+    function handleFileLoad(event) {
+        console.log(event);
+        const textContent = event.target.result;
+        console.log(textContent)
+    }
+
+    document.getElementById('file').addEventListener('change', handleFileSelect, false);
 
     function download(mimeType, filename) {
         var a = document.createElement('a')
