@@ -73,6 +73,7 @@
             <div class="col">
                 <div class="mb-3">
                     <input type="file" name="file" id="file"> 
+                    <button id="finishSetup" style="display:none;" type="button" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Upload succesfully finished, Click to complete setup</button>
                 </div>
             </div>
         </div>
@@ -99,9 +100,25 @@
     };
 
     function handleFileLoad(event) {
-        console.log(event);
         const textContent = event.target.result;
-        console.log(textContent)
+        const lines = textContent.split('\n');
+        let headers = [];
+        let people = [];
+        
+        if(lines.length === 1) {
+            headers = lines[0].split(',');
+        }
+        else if(lines.length > 1) {
+            headers = lines[0].split(',');
+
+            for(let k = 1; k<lines.length; k++) {
+                let person = lines[k].split(',');
+                people.push(person);
+            }
+        }
+        window.settings.headers = headers;
+        window.settings.people = people;
+        $('#finishSetup').show();
     }
 
     document.getElementById('file').addEventListener('change', handleFileSelect, false);
@@ -233,6 +250,18 @@
             $('#section' + prevSectionId).show();
             $('#section' + prevSectionId).addClass('active');
 
+        })
+
+        function onFailure(error) {
+            alert(error)
+        }
+
+        function onSuccess() {
+            google.script.host.close();
+        }
+
+        $('#finishSetup').on("click", () => {
+            google.script.run.withSuccessHandler(onSuccess).processForm(window.settings);
         })
     });
 </script>
