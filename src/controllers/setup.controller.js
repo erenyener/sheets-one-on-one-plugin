@@ -10,7 +10,7 @@ function processForm(data) {
 
     const defaultHeaders = ["Last 1-1 Date", "SpreadSheet", "1-1 Status", "Days Left for Next 1-1"]
     data.headers.shift();
-    const allHeaders = ["Name", ...data.headers, ...defaultHeaders]
+    const allHeaders = ["Name", ...data.headers.map(w => w.charAt(0).toUpperCase() + w.slice(1)), ...defaultHeaders.map(w => w.charAt(0).toUpperCase() + w.slice(1))]
     oneOnOneSheet.appendRow(allHeaders);
 
     data.people.forEach(person => {
@@ -26,7 +26,7 @@ function processForm(data) {
         }
     });
 
-
+    oneOnOneSheet.autoResizeColumns(1, oneOnOneSheet.getLastColumn());
     const headersRange = oneOnOneSheet.getRange(1, 1, 1, oneOnOneSheet.getLastColumn());
     headersRange.setBackgroundRGB(252, 229, 205);
     headersRange.setBorder(true, true, true, true, true, true, "black", SpreadsheetApp.BorderStyle.SOLID);
