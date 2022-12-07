@@ -4,17 +4,24 @@ function processForm(data) {
         return false;
     }
 
+    createOneOnOneSheet(data);
+    createSettingsSheet(data);
+    return true;
+}
+
+function createOneOnOneSheet(formData) {
     const spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
-    const oneOnOneSheet = spreadSheet.insertSheet()
+    const oneOnOneSheet = spreadSheet.insertSheet();
     oneOnOneSheet.setName(SHEET_NAMES.OneToOnes);
 
     
-    setOneonOneSheetHeaders(oneOnOneSheet, data.headers)
-    addPeopleToOneOnOneSheet(oneOnOneSheet, data.people)
-    setOneOneOneSheetStyles(oneOnOneSheet)
-    
-    
-    return true;
+    setOneonOneSheetHeaders(oneOnOneSheet, formData.headers);
+    addPeopleToOneOnOneSheet(oneOnOneSheet, formData.people);
+    setOneOneOneSheetStyles(oneOnOneSheet);
+}
+
+function createSettingsSheet(formData) {
+
 }
 
 function setOneonOneSheetHeaders(oneOnOneSheet, customHeaders) {
@@ -46,12 +53,17 @@ function setOneOneOneSheetStyles(oneOnOneSheet) {
     oneOnOneSheet.setHiddenGridlines(true);
     oneOnOneSheet.autoResizeColumns(1, oneOnOneSheet.getLastColumn());
 
+
+    const allRange = oneOnOneSheet.getRange(1, 1, oneOnOneSheet.getLastRow(), oneOnOneSheet.getLastColumn());
+    allRange.setFontFamily("Calibri").setFontSize(10);
+
     const headersRange = oneOnOneSheet.getRange(1, 1, 1, oneOnOneSheet.getLastColumn());
-    const headerDataRange = headersRange.getDataRange()
-    headerDataRange.setFontFamilyAndWeight('Calibri', 600).setFontSize('11')
+    headersRange.setFontWeight("bold")
     headersRange.setBackgroundRGB(252, 229, 205);
-    headersRange.setBorder(true, true, true, true, true, true, "black", SpreadsheetApp.BorderStyle.SOLID);
+    allRange.setBorder(true, true, true, true, true, true, "black", SpreadsheetApp.BorderStyle.SOLID);
 }
+
+
 
 
 
