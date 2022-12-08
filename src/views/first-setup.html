@@ -78,6 +78,14 @@
             </div>
         </div>
 
+        <div id="setupCompleted" style="display: none;" class="row">
+            <div class="col">
+                <div class="mb-3">
+                    Setup Completed, Please refresh the page.
+                </div>
+            </div>
+        </div>
+
         <div class="row footer">
             <div class="col">
                 <button id="prev" type="button" style="display: none;" class="btn btn-warning float-start">Prev</button>
@@ -257,7 +265,10 @@
         }
 
         function onSuccess() {
-            google.script.host.close();
+            $('#section4').removeClass('active');
+            $('#section4').hide();
+            $('#setupCompleted').show();
+            $('#prev').hide();
         }
 
         $('#finishSetup').on("click", () => {

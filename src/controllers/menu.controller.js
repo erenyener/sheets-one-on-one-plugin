@@ -35,10 +35,10 @@ function firstSetup() {
 
 function isFirstSetupCompleted() {
     try {
-        const settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.Settings);
-        const firstSetupCompleted = settingsSheet ? true : false;
+        const userProperties = PropertiesService.getUserProperties();
+        const firstSetupDone = userProperties.getProperty('FIRST_SETUP')
+        const firstSetupCompleted = firstSetupDone === "true";
         return firstSetupCompleted;
-
     }
     catch (e) {
         Logger.log("Settings Sheet can not be found.");

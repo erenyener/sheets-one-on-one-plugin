@@ -5,7 +5,7 @@ function processForm(data) {
     }
 
     createOneOnOneSheet(data);
-    createSettingsSheet(data);
+    setUserSettings(data);
     return true;
 }
 
@@ -20,7 +20,12 @@ function createOneOnOneSheet(formData) {
     setOneOneOneSheetStyles(oneOnOneSheet);
 }
 
-function createSettingsSheet(formData) {
+function setUserSettings(formData) {
+    
+    const userProperties = PropertiesService.getUserProperties();
+    userProperties.setProperty('CYCLE_TIME', formData.cycletime);
+    userProperties.setProperty('FIRST_SETUP', "true");
+
 
 }
 
