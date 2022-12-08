@@ -47,8 +47,11 @@ function addPeopleToOneOnOneSheet(oneOnOneSheet, people) {
                     row.push(person[i]);
                 }
             }
-            row.push(""); row.push(""); row.push(""); row.push("");
-            oneOnOneSheet.appendRow(row);
+            row.push(""); row.push(""); row.push(""); row.push(0);
+            if(!!row[0] && row[0].length > 0){
+                oneOnOneSheet.appendRow(row);
+            }
+            
         }
     });
 }
