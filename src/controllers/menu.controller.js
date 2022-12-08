@@ -33,6 +33,19 @@ function firstSetup() {
     SpreadsheetApp.getUi().showModalDialog(template, 'First Setup');
 }
 
+function createOneToOne() {
+  
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('1-1s');
+    const range = sheet.getActiveRange();
+  
+    const col = range.getColumn()
+    const row = range.getRow()
+  
+    
+    
+  
+  }
+
 function isFirstSetupCompleted() {
     try {
         const userProperties = PropertiesService.getUserProperties();
