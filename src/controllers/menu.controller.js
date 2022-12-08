@@ -58,7 +58,7 @@ function createOneToOne() {
               return; 
             }
             
-            cellHelper.setCellValue(row, personSpreadSheetColumnIndex, oneToOneSpreadSheetLink, SHEET_NAMES.OneToOneSheetName);
+            cellHelper.setCellValue(row, personSpreadSheetColumnIndex, oneToOneSpreadSheetLink, SHEET_NAMES.OneToOnes);
             
           }
     }
@@ -80,27 +80,24 @@ function isFirstSetupCompleted() {
     }
 }
 
-function getName(row, col) {
-    const ui = SpreadsheetApp.getUi();
+function getName(col, row) {
+    
     const cellHelper = new CellHelper();
 
-    ui.alert(row)
-    ui.alert(col)
-    if (col === 1 && row > 0) {
-        ui.alert("İf")
-        const name = cellHelper.getCellValue(row, col, SHEET_NAMES.OneToOneSheetName);
-        ui.alert(name)
+    if (parseInt(col) === 1 && parseInt(row) > 1) {
+        const name = cellHelper.getCellValue(row, col, SHEET_NAMES.OneToOnes);
         return name;
     }
-    ui.alert("not if")
     Logger.log("An error occured in OneToOneController onPersonClick. Error: col should be 1 and row should be greater than 1");
     return null;
 }
 
 function getOneToOneSpreadSheetLink(row, spreadSheetColumnIndex) {
     const cellHelper = new CellHelper();
-    const spreadSheetUrl = cellHelper.getCellValue(row, spreadSheetColumnIndex, SHEET_NAMES.OneToOneSheetName);
-    const isValid = this.urlHelper.validURL(spreadSheetUrl);
+    const urlHelper = new UrlHelper();
+    
+    const spreadSheetUrl = cellHelper.getCellValue(row, spreadSheetColumnIndex, SHEET_NAMES.OneToOnes);
+    const isValid = urlHelper.validURL(spreadSheetUrl);
 
     if (isValid) {
         return spreadSheetUrl;
