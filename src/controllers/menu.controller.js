@@ -52,6 +52,7 @@ function createOneToOne() {
         if(!personSpreadSheetLink) {
             
             const oneToOneSpreadSheetLink = oneOnOneService.createInitialOneToOneSpreadSheet(personName);
+            Logger.log(oneToOneSpreadSheetLink)
             personSpreadSheetLink = oneToOneSpreadSheetLink;
             if(!oneToOneSpreadSheetLink) {
               Logger.log("An error occured in OneToOneController onPersonClick. Error: sheet can't be created")
@@ -95,7 +96,7 @@ function getName(col, row) {
 function getOneToOneSpreadSheetLink(row, spreadSheetColumnIndex) {
     const cellHelper = new CellHelper();
     const urlHelper = new UrlHelper();
-    
+
     const spreadSheetUrl = cellHelper.getCellValue(row, spreadSheetColumnIndex, SHEET_NAMES.OneToOnes);
     const isValid = urlHelper.validURL(spreadSheetUrl);
 

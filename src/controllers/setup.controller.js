@@ -64,6 +64,7 @@ function setOneOneOneSheetStyles(oneOnOneSheet) {
 
     const allRange = oneOnOneSheet.getRange(1, 1, oneOnOneSheet.getLastRow(), oneOnOneSheet.getLastColumn());
     allRange.setFontFamily("Calibri").setFontSize(10);
+    allRange.setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
 
     const headersRange = oneOnOneSheet.getRange(1, 1, 1, oneOnOneSheet.getLastColumn());
     headersRange.setFontWeight("bold")
