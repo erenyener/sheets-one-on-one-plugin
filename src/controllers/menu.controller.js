@@ -49,19 +49,20 @@ function createOneToOne() {
         const personSpreadSheetColumnIndex = sheet.getLastColumn() - 2;
         let personSpreadSheetLink = getOneToOneSpreadSheetLink(row, personSpreadSheetColumnIndex);
 
-        if(!personSpreadSheetLink) {
-            
+        if (!personSpreadSheetLink) {
+
             const oneToOneSpreadSheetLink = oneOnOneService.createInitialOneToOneSpreadSheet(personName);
-            Logger.log(oneToOneSpreadSheetLink)
             personSpreadSheetLink = oneToOneSpreadSheetLink;
-            if(!oneToOneSpreadSheetLink) {
-              Logger.log("An error occured in OneToOneController onPersonClick. Error: sheet can't be created")
-              return; 
+            if (!oneToOneSpreadSheetLink) {
+                Logger.log("An error occured in OneToOneController onPersonClick. Error: sheet can't be created")
+                return;
             }
-            
+
             cellHelper.setCellValue(row, personSpreadSheetColumnIndex, oneToOneSpreadSheetLink, SHEET_NAMES.OneToOnes);
-            
-          }
+        }
+
+        const lastOneToOne = oneOnOneService.getLastOneToOne(personSpreadSheetLink);
+        openOneToOneModal(personName, row, lastOneToOne, personSpreadSheetLink);
     }
     else {
         ui.alert("Please select person from the table then click do 1-1")
@@ -82,7 +83,7 @@ function isFirstSetupCompleted() {
 }
 
 function getName(col, row) {
-    
+
     const cellHelper = new CellHelper();
 
     if (parseInt(col) === 1 && parseInt(row) > 1) {
@@ -106,5 +107,22 @@ function getOneToOneSpreadSheetLink(row, spreadSheetColumnIndex) {
 
     Logger.log("An error occured in OneToOneController _getOneToOneSpreadSheet. Error: Url is empty or invalid");
     return null;
+}
 
+function openOneToOneModal(personName, row, lastOneToOne, spreadSheetLink) {
+    const data = { personName: personName, row: row, lastOneToOne: lastOneToOne, spreadSheetLink: spreadSheetLink };
+
+    const modalHtml = HtmlService
+        .createTemplateFromFile('src/views/one-one-modal')
+        .evaluate()
+        .getContent();
+
+    const template = HtmlService.createTemplate(modalHtml +
+        "<script>window.stringifiedData = " + JSON.stringify(data) + "</script>")
+        .evaluate()
+        .setWidth(1100)
+        .setHeight(700);
+
+
+    SpreadsheetApp.getUi().showModalDialog(template, 'Create 1-1 (' + personName + ')');
 }

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+
+            @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+            html{
+                background-color: rgb(251 251 251 / 36%);
+                font-size: 14px;
+                padding-bottom: 40px;
+                color: #888686;
+            }
+
+            body{
+                background: #FFF;
+                z-index: 1;
+                margin-top: 30px;
+                padding: 10px;
+                font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+                width: 100%;
+                height: 500px;
+                overflow-x: hidden;
+            }
+
+            h4{
+                color: #B1B2FF
+            }
+    
+            .container {
+                width: 97%;
+                display: flex;
+                flex-direction: row;
+                text-align: center;
+                flex-wrap: nowrap;
+                align-items: stretch;
+                height: 665px;
+            }
+    
+            .section{
+                margin: 10px;
+                padding: 10px 20px;
+                width: 100%;
+                max-height: 700px;
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #e2e2e2;
+                overflow-y: scroll;
+            }
+
+            .section-title {
+                margin: 10px 0px 20px 0px;
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: #000;
+            }
+
+            .form-container{
+                display: flex;
+                
+            }
+
+            form{
+                width: 100%;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                margin-bottom: 20px;
+            }
+
+            .form-label{
+                color:#000;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .form-control{
+                width: 100%;
+            }
+
+            button.form-submit {
+                background-color: #007bff;
+                border: none;
+                padding: 10px;
+                width: 100%;
+                color: #FFF;
+                border: 1px solid #007bff;
+            }
+
+            input[type="submit"] {
+                background-color: #007bff;
+                border: none;
+                padding: 10px;
+                width: 100%;
+                color: #FFF;
+                border: 1px solid #007bff;
+                cursor: pointer;
+            }
+
+            .oh{
+              overflow: hidden;
+            }
+
+            input.form-control.text-input{
+                border: 2px solid #e2e2e2;
+                padding-left: 10px;
+                height: 35px;
+                box-sizing: border-box;
+            }
+
+            ul{
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                padding-left: 0px;
+                margin-bottom: 0px;
+                width: 100%;
+                text-align: left;
+                margin-top: 0;
+            }
+
+            li {
+                position: relative;
+                display: block;
+                padding: 0.35rem 0.35rem;
+                font-size:13px;
+                margin-bottom: -1px;
+                background-color: #fff;
+                border: 1px solid #e2e2e2;
+            }
+
+            select{
+                width: 100%;
+                padding:5px;
+                border: 2px solid #e2e2e2;
+            }
+
+            .hide{
+              display: none !important;
+            }
+
+            .mr-10{
+              margin-right:10px !important;
+            }
+
+            .flex-container{
+              display:flex;
+            }
+
+            .half-flex {
+              flex: 1 1;
+              white-space: nowrap;
+            }
+
+            .lds-facebook {
+              display: inline-block;
+              position: relative;
+              width: 80px;
+              height: 80px;
+              margin: auto;
+              margin-top: 100px;
+            }
+
+            .lds-facebook div {
+              display: inline-block;
+              position: absolute;
+              left: 8px;
+              width: 16px;
+              background: #007bff;
+              animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+            }
+
+            .lds-facebook div:nth-child(1) {
+              left: 8px;
+              animation-delay: -0.24s;
+            }
+
+            .lds-facebook div:nth-child(2) {
+              left: 32px;
+              animation-delay: -0.12s;
+            }
+
+            .lds-facebook div:nth-child(3) {
+              left: 56px;
+              animation-delay: 0;
+            }
+
+            @keyframes lds-facebook {
+              0% {
+                top: 8px;
+                height: 64px;
+              }
+              50%, 100% {
+                top: 24px;
+                height: 32px;
+              }
+            }
+            
+
+    </style>
+
+    <script>
+
+      window.interview = {
+        topOfMind: "",
+        generalMood: "",
+        learnings: "",
+        roadBlocks: "",
+        careerDevelopment: "",
+        teamDynamics: "",
+        notes: [],
+        actions: [],
+        feedbacks: []
+      };
+
+      window.notes = [];
+      window.actions = [];
+
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+
+      function showLoader() {
+        const oneToOneForm = document.getElementById('oneToOneForm')
+        const oneToOneFormPreview = document.getElementById('oneToOneFormPreview')
+        const lastOneToOneBox = document.getElementById('lastOneToOneBox');
+        const emptyLastOneToOneBox = document.getElementById('emptyLastOneToOneBox');
+        const loader = document.getElementById('loader')
+        addClass(oneToOneForm, 'hide');
+        addClass(lastOneToOneBox, 'hide');
+        addClass(oneToOneFormPreview, 'hide');
+        addClass(emptyLastOneToOneBox, 'hide');
+        removeClass(loader, 'hide');
+      }
+
+      function handleFormSubmit(formObject) {
+        
+        showLoader();
+
+        const stringifiedData = window.stringifiedData;
+        stringifiedData.topOfMind = window.interview.topOfMind;
+        stringifiedData.generalMood = window.interview.generalMood;
+        stringifiedData.learnings = window.interview.learnings;
+        stringifiedData.roadBlocks = window.interview.roadBlocks;
+        stringifiedData.careerDevelopment = window.interview.careerDevelopment;
+        stringifiedData.teamDynamics = window.interview.teamDynamics;
+        stringifiedData.notes = window.interview.notes;
+        stringifiedData.actions = window.interview.actions;
+        stringifiedData.feedbacks = window.interview.feedbacks;
+        
+        google.script.run.withSuccessHandler(onSuccess).processForm(stringifiedData);
+      }
+
+      function onFailure(error) {
+        alert(error)
+      }
+
+      function onSuccess() {
+        google.script.host.close();
+      }
+
+      function onKeyDown(element) {
+        if(event.key === 'Enter') {
+            const value = element.value;
+            const key = element.getAttribute('data-key');
+            window.interview[key] = value;
+            setPreview(key, value);
+        }
+      }
+
+      function onSelectBoxChange(element) {
+        const value = element.value;
+        const key = element.getAttribute('data-key');
+        window.interview[key] = value;
+        setPreview(key, value);
+      }
+
+      function onMultipleInputKeyDown(element) {
+        if(event.key === 'Enter') {
+            const value = element.value;
+            const key = element.getAttribute('data-key');
+            window.interview[key].push(value);
+            appendListPreview(key, value)
+            element.value = "";
+        }
+      }
+
+      function setPreview(key, innerText) {
+        const idSelector = key + "Preview";
+        const element = document.getElementById(idSelector);
+        element.innerText = innerText;
+      }
+
+      function appendListPreview(key, value){
+        const idSelector = key + "Preview";
+        const element = document.getElementById(idSelector);
+        let node = document.createElement("li");
+        node.innerText = value;
+        element.appendChild(node);
+      }
+
+      function hasClass(ele,cls) {
+        return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+      }
+
+      function addClass(ele,cls) {
+        if (!hasClass(ele,cls)) ele.className += " "+cls;
+      }
+
+      function removeClass(ele,cls) {
+        if (hasClass(ele,cls)) {
+          var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+          ele.className=ele.className.replace(reg,' ');
+        }
+      }
+
+      function setInitialLayout() {
+
+        if(!window.stringifiedData.lastOneToOne) {
+            const lastOneToOneBox = document.getElementById('lastOneToOneBox');
+            const emptyLastOneToOneBox = document.getElementById('emptyLastOneToOneBox');
+            removeClass(emptyLastOneToOneBox, 'hide')
+            const oneToOneForm = document.getElementById('oneToOneForm')
+            const oneToOneFormPreview = document.getElementById('oneToOneFormPreview')
+            const loader = document.getElementById('loader')
+            removeClass(oneToOneForm, 'hide');
+            removeClass(oneToOneFormPreview, 'hide');
+            addClass(loader, 'hide');
+            return ;
+        }
+        else {
+          removeClass(lastOneToOneBox, 'hide')
+        }
+
+        const oneToOneForm = document.getElementById('oneToOneForm')
+        const oneToOneFormPreview = document.getElementById('oneToOneFormPreview')
+        const loader = document.getElementById('loader')
+        removeClass(oneToOneForm, 'hide');
+        removeClass(oneToOneFormPreview, 'hide');
+        addClass(loader, 'hide');
+      }
+
+      (function() {
+        setTimeout(() => {
+
+          setInitialLayout();
+          
+          const topOfMind = window.stringifiedData.lastOneToOne.topOfMind; 
+          const generalMood = window.stringifiedData.lastOneToOne.generalMood; 
+          const learnings = window.stringifiedData.lastOneToOne.learnings; 
+          const roadBlocks = window.stringifiedData.lastOneToOne.roadBlocks; 
+          const careerDevelopment = window.stringifiedData.lastOneToOne.careerDevelopment; 
+          const teamDynamics = window.stringifiedData.lastOneToOne.teamDynamics; 
+          const actions = window.stringifiedData.lastOneToOne.actions;
+          const notes = window.stringifiedData.lastOneToOne.notes;
+          const feedbacks = window.stringifiedData.lastOneToOne.feedbacks;
+          
+
+          const topOfMindLastElement= document.getElementById('topOfMindLast');
+          topOfMindLastElement.innerText = topOfMind;
+
+          const generalMoodLastElement = document.getElementById('generalMoodLast');
+          generalMoodLastElement.innerText = generalMood;
+
+          const learningsLastElement = document.getElementById('learningsLast');
+          learningsLastElement.innerText = learnings;
+
+          const roadBlocksLastElement = document.getElementById('roadBlocksLast');
+          roadBlocksLastElement.innerText = roadBlocks;
+
+          const careerDevelopmentLastElement= document.getElementById('careerDevelopmentLast');
+          careerDevelopmentLastElement.innerText = careerDevelopment;
+
+          const teamDynamicsLastElementElement= document.getElementById('teamDynamicsLast');
+          teamDynamicsLastElementElement.innerText = teamDynamics;
+          
+          
+
+
+
+          var notesLastElement = document.getElementById('notesLast');
+          var actionsLastElement = document.getElementById('actionsLast');
+          var feedbacksLastElement = document.getElementById('feedbacksLast');
+
+          notes.forEach((note) => {
+            var node = document.createElement("li");
+            node.innerText = note;
+            notesLastElement.appendChild(node);
+          })
+          
+          actions.forEach((action) => {
+            var node = document.createElement("li");
+            node.innerText = action;
+            actionsLastElement.appendChild(node);
+          })
+
+          feedbacks.forEach((action) => {
+            var node = document.createElement("li");
+            node.innerText = action;
+            feedbacksLastElement.appendChild(node);
+          })
+
+        },1000)
+        
+
+      })();
+
+    </script>
+  </head>
+  <body>
+    <div class="container">
+        <div id="loader" class="lds-facebook"><div></div><div></div><div></div></div>
+        <div id="oneToOneForm" class="section hide oh">
+            <div class="section-title">1-1 Form</div>
+            <div class="form-container">
+                <form id="oneToOneForm" onkeydown="return event.key != 'Enter';" onsubmit="handleFormSubmit(this)">
+                  <div class="form-group">
+                        <label class="form-label">What is top of mind?</label>
+                        <input placeholder="Press Enter to set the most critical topic" type="text" name="topOfMind" data-key="topOfMind" onkeydown="onKeyDown(this)" class="form-control text-input"></input>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">How do you feel at Trendyol</label>
+                        <select name="mood" data-key="generalMood" onchange="onSelectBoxChange(this)">
+                            <option value="false">Not Selected</option>
+                            <option value="Bored">Bored</option>
+                            <option value="Anxious">Anxious</option>
+                            <option value="Calm">Calm</option>
+                            <option value="Cheerful">Cheerful</option>
+                        </select>
+                    </div>
+                    <div class="flex-container">
+                      <div class="form-group half-flex mr-10">
+                          <label class="form-label">Learnings</label>
+                          <select name="learnings" data-key="learnings" onchange="onSelectBoxChange(this)">
+                              <option value="false">Not Selected</option>
+                              <option value="Satisfying">Satisfying</option>
+                              <option value="Dissatisfying">Dissatisfying</option>
+                          </select>
+                      </div>
+                      <div class="form-group half-flex ">
+                          <label class="form-label">Roadblocks</label>
+                          <select name="roadBlocks" data-key="roadBlocks" onchange="onSelectBoxChange(this)">
+                              <option value="false">Not Selected</option>
+                              <option value="Satisfying">Satisfying</option>
+                              <option value="Dissatisfying">Dissatisfying</option>
+                          </select>
+                      </div>
+                    </div>
+                    
+                    <div class="flex-container">
+                      <div class="form-group half-flex mr-10">
+                          <label class="form-label">Career Development</label>
+                          <select name="careerDevelopment" data-key="careerDevelopment" onchange="onSelectBoxChange(this)">
+                              <option value="false">Not Selected</option>
+                              <option value="Satisfying">Satisfying</option>
+                              <option value="Dissatisfying">Dissatisfying</option>
+                          </select>
+                      </div>
+                      <div class="form-group half-flex">
+                          <label class="form-label">Team Dynamics</label>
+                          <select name="teamDynamics" data-key="teamDynamics" onchange="onSelectBoxChange(this)">
+                              <option value="false">Not Selected</option>
+                              <option value="Satisfying">Satisfying</option>
+                              <option value="Dissatisfying">Dissatisfying</option>
+                          </select>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Notepad</label>
+                        <input placeholder="press enter to add note" type="text" name="notes" data-key="notes" name="" onkeydown="onMultipleInputKeyDown(this)" class="form-control text-input"></input>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Action Items</label>
+                        <input placeholder="press enter to add action" type="text" name="actions" data-key="actions" value="" onkeydown="onMultipleInputKeyDown(this)" class="form-control text-input"></input>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Leadership Feedback</label>
+                        <input placeholder="press enter to add action" type="text" name="feedbacks" data-key="feedbacks" value="" onkeydown="onMultipleInputKeyDown(this)" class="form-control text-input"></input>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" value="Submit" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="oneToOneFormPreview" class="section hide">
+            <div class="section-title">Preview</div>
+            <div class="form-container">
+                <form id="oneToOneForm" onkeydown="return event.key != 'Enter';" onsubmit="handleFormSubmit(this)">
+                    <div class="form-group">
+                        <label class="form-label">What is top of mind?</label>
+                        <div id="topOfMindPreview"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">How do you feel at Trendyol</label>
+                        <div id="generalMoodPreview"></div>
+                    </div>
+                    <div class="flex-container">
+                      <div class="form-group half-flex mr-10">
+                          <label class="form-label">Learnings</label>
+                          <div id="learningsPreview"></div>
+                      </div>
+                      <div class="form-group half-flex ">
+                          <label class="form-label">Roadblocks</label>
+                          <div id="roadBlocksPreview"></div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex-container">
+                      <div class="form-group half-flex mr-10">
+                          <label class="form-label">Career Development</label>
+                          <div id="careerDevelopmentPreview"></div>
+                      </div>
+                      <div class="form-group half-flex">
+                          <label class="form-label">Team Dynamics</label>
+                          <div id="teamDynamicsPreview"></div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Notepad</label>
+                        <ul id="notesPreview"></ul>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Action Items</label>
+                        <ul id="actionsPreview"></ul>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Leadership Feedback</label>
+                        <ul id="feedbacksPreview"></ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="emptyLastOneToOneBox" class="section hide">
+            <div class="section-title">Last 1-1</div>
+            <div class="form-group">
+                <label class="form-label">There has not 1-1 saved yet.</label>
+            </div>
+        </div>
+        <div id="lastOneToOneBox" class="section hide">
+            <div class="section-title">Last 1-1</div>
+            <div class="form-group">
+                <label class="form-label">Top Of Mind</label>
+                <div id="topOfMindLast"></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">How do you feed at Trendyol</label>
+                <div id="generalMoodLast"></div>
+            </div>
+
+            <div class="flex-container">
+                <div class="form-group half-flex mr-10">
+                  <label class="form-label">Learnings</label>
+                  <div id="learningsLast"></div>
+                </div>
+                <div class="form-group half-flex ">
+                  <label class="form-label">Roadblocks</label>
+                <div id="roadBlocksLast"></div>
+              </div>
+            </div>
+
+            <div class="flex-container">
+                <div class="form-group half-flex mr-10">
+                  <label class="form-label">Career Development</label>
+                  <div id="careerDevelopmentLast"></div>
+                </div>
+                <div class="form-group half-flex ">
+                  <label class="form-label">Team Dynamics</label>
+                <div id="teamDynamicsLast"></div>
+              </div>
+            </div>
+            
+
+            <div class="form-group">
+                <label class="form-label">Notes</label>
+                <ul id="notesLast"></ul>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Actions</label>
+                <ul id="actionsLast"></ul>
+            </div>
+            <div class="form-group">
+                <label class="form-label">feedbacks</label>
+                <ul id="feedbacksLast"></ul>
+            </div>
+        </div>
+    </div>
+  </body>
+
+</html>
