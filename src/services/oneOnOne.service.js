@@ -44,3 +44,105 @@ OneOnOneService.prototype.getLastOneToOne = function(spreadSheetLink) {
       return false;
     }
   }
+
+  OneOnOneService.prototype.saveOneToOne = function(formObject) {
+    // const oneToOneController = new OneToOneController();
+    const cellHelper = new CellHelper();
+    const dateTimeHelper = new DateTimeHelper();
+    const spreadSheet = SpreadsheetApp.openByUrl(formObject.spreadSheetLink);
+    const currentDate = dateTimeHelper.getCurrentDateWithHourAndMinuteAndSeconds();
+    const sheet = spreadSheet.insertSheet(currentDate, 0);
+    
+    
+    const appendList = getOneToOneAppendList(formObject);
+    
+    appendList.forEach((row) => {
+      sheet.appendRow(row);
+    }) 
+
+    const oneToOneStatus = calculateOneToOneStatus(formObject);
+    cellHelper.setCellValue(formObject.row, OneToOneSheetColumnsMap.get('1-1 Status'), oneToOneStatus, SHEET_NAMES.OneToOnes);
+    cellHelper.setCellValue(formObject.row, OneToOneSheetColumnsMap.get('LastOneToOneDate'), currentDate, SHEET_NAMES.OneToOnes);
+
+    
+    setOneToOneSheetStyles(sheet);
+    oneToOneController.setStatus();
+  }
+
+  function getOneToOneAppendList(formObject) {
+
+    let appendList = [];
+    const notesLength = formObject.notes.length;
+    const actionsLength = formObject.actions.length
+    const feedbacksLength = formObject.feedbacks.length
+    const loopLength = Math.max(notesLength, actionsLength, feedbacksLength);
+
+    appendList.push(["Top Of Mind", "General Mood", "Learnings", "Road Blocks", "Career Development", "Team Dynamics", "Notes", "Actions", "Feedbacks"]);
+    for(let i=0; i<loopLength; i++){
+      
+      if(i === 0) {
+        const firstAction = formObject.actions.length > 0 ? formObject.actions[i] : "";
+        const firstNote = formObject.notes.length > 0 ? formObject.notes[i] : "";
+        const firstFeedback = formObject.feedbacks.length > 0 ? formObject.feedbacks[i] : "";
+        appendList.push([formObject.topOfMind, formObject.generalMood, formObject.learnings, formObject.roadBlocks, formObject.careerDevelopment, formObject.teamDynamics ,firstNote, firstAction, firstFeedback])
+      }
+      else {
+        let otherAction = "";
+        let otherNote = "";
+        let otherFeedback = "";
+
+        if(i < actionsLength) {
+          otherAction = formObject.actions[i]
+        }
+        if(i < notesLength) {
+          otherNote = formObject.notes[i]
+        }
+        if(i < feedbacksLength) {
+          otherFeedback = formObject.feedbacks[i]
+        }
+
+        appendList.push(["", "", "", "", "", "", otherNote, otherAction, otherFeedback])
+      }
+    }
+
+    return appendList;
+  }
+
+  function calculateOneToOneStatus(formObject) {
+    
+    if(formObject.generalMood == "Bored" || formObject.generalMood == "Anxious"){
+      return "Poor";
+    }
+    else if(formObject.learnings == "Dissatisfying"){
+      return "Poor";
+    }
+    else if(formObject.roadBlocks == "Dissatisfying"){
+      return "Poor";
+    }
+    else if(formObject.careerDevelopment == "Dissatisfying"){
+      return "Poor";
+    }
+    else if(formObject.teamDynamics == "Dissatisfying"){
+      return "Poor";
+    }
+    else if(formObject.feedbacks.length > 2) {
+      return "Poor";
+    }
+    else if(formObject.actions.length > 2) {
+      return "Poor";
+    }
+
+    return "Good";
+
+  }
+
+  function setOneToOneSheetStyles(sheet){
+    sheet.setHiddenGridlines(true);
+    const lastColumn = sheet.getLastColumn();
+    const lastRow = sheet.getLastRow();
+    const firstRow = sheet.getRange(1, 1, 1, lastColumn);
+    const allCells = sheet.getRange(1, 1, lastRow, lastColumn);
+    firstRow.setBackground("#fce5cd");
+    allCells.setBorder(true, null, true, null, true, true, "black", SpreadsheetApp.BorderStyle.SOLID);
+
+}
