@@ -259,7 +259,7 @@
         stringifiedData.actions = window.interview.actions;
         stringifiedData.feedbacks = window.interview.feedbacks;
         
-        google.script.run.withSuccessHandler(onSuccess).processForm(stringifiedData);
+        google.script.run.withSuccessHandler(onSuccess).processFormOneOnOne(stringifiedData);
       }
 
       function onFailure(error) {

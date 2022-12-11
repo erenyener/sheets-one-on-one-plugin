@@ -46,8 +46,7 @@ OneOnOneService.prototype.getLastOneToOne = function(spreadSheetLink) {
   }
 
   OneOnOneService.prototype.saveOneToOne = function(formObject) {
-    // const oneToOneController = new OneToOneController();
-    const cellHelper = new CellHelper();
+    
     const dateTimeHelper = new DateTimeHelper();
     const spreadSheet = SpreadsheetApp.openByUrl(formObject.spreadSheetLink);
     const currentDate = dateTimeHelper.getCurrentDateWithHourAndMinuteAndSeconds();
@@ -61,12 +60,14 @@ OneOnOneService.prototype.getLastOneToOne = function(spreadSheetLink) {
     }) 
 
     const oneToOneStatus = calculateOneToOneStatus(formObject);
-    cellHelper.setCellValue(formObject.row, OneToOneSheetColumnsMap.get('1-1 Status'), oneToOneStatus, SHEET_NAMES.OneToOnes);
-    cellHelper.setCellValue(formObject.row, OneToOneSheetColumnsMap.get('LastOneToOneDate'), currentDate, SHEET_NAMES.OneToOnes);
-
-    
     setOneToOneSheetStyles(sheet);
-    oneToOneController.setStatus();
+
+    return {
+        isSuccess: true,
+        personRowNumber : formObject.row,
+        oneOnOneStatus: oneToOneStatus,
+        savedDate: currentDate
+    }
   }
 
   function getOneToOneAppendList(formObject) {
