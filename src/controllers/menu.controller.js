@@ -1,5 +1,11 @@
 function onOpen() {
-    renderMenu(isFirstSetupCompleted());
+    const firstSetupCompleted = isFirstSetupCompleted();
+    renderMenu(firstSetupCompleted);
+
+    if(firstSetupCompleted) {
+        setRemainingDatesForNextOneOnOne();
+    }
+
 }
 
 function renderMenu(isFirstSetupCompleted) {
@@ -33,9 +39,35 @@ function firstSetup() {
     SpreadsheetApp.getUi().showModalDialog(template, 'First Setup');
 }
 
+function setRemainingDatesForNextOneOnOne() {
+
+    const dateTimeHelper = new DateTimeHelper();
+    const cellHelper = new CellHelper();
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
+    const lastColumn = sheet.getLastColumn();
+    const peopleRange = sheet.getRange(2, 1, sheet.getLastRow(), lastColumn);
+    const peopleDatas = peopleRange.getValues();
+
+    peopleDatas.forEach((personData, index) => {
+
+        Logger.log(personData)
+        const person = {
+            name: personData[0],
+            lastOneToOneDate: personData[lastColumn - 4]
+        };
+
+        const globalDateForLastOneOnOne = new Date(person.lastOneToOneDate).toLocaleDateString('en-GB')
+        const remainingDaysToNextOneOnOne = dateTimeHelper.getDayDifferenceBetweenDates(globalDateForLastOneOnOne, new Date());
+        
+        if(person.name) {
+            cellHelper.setCellValue(index + 2, lastColumn, remainingDaysToNextOneOnOne, SHEET_NAMES.OneToOnes);
+        }
+    })
+}
+
 function createOneToOne() {
     const ui = SpreadsheetApp.getUi();
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('1-1s');
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
     const range = sheet.getActiveRange();
     const cellHelper = new CellHelper();
     const oneOnOneService = new OneOnOneService();
