@@ -22,16 +22,29 @@
 
         .multiple-container {
             display: flex;
-            padding: 20px;
+            padding: 5px;
             flex-flow: row;
         }
 
         span.multiple-item {
             display: flex;
-            margin: 10px;
-            border: 1px solid #0d6efd;
-            padding: 10px;
+            margin: 3px;
+            border: 1px solid #ced4da;
+            padding: 5px;
         }
+
+        .custom-field-image-preview{
+            width: auto;
+            height: 250px;
+            margin-right: auto;
+            margin-left: auto;
+            display: flex;
+        }
+
+        .fs-15 {
+            font-size: 15px !important;
+        }
+
     </style>
 </head>
 
@@ -51,11 +64,12 @@
         <div id="section2" data-id="2" style="display: none;" class="row">
             <div class="col">
                 <div class="mb-3">
-                    <label for="customField" class="form-label">What are your custom fieds ?</label>
+                    <label for="customField" class="form-label">What are your custom fields ? Those fields are optional and useful for filtering.</label>
                     <input data-type="multiple" data-validations="" data-settings-key="customFields" type="text"
                         class="form-control" id="customField" onkeydown="onMultipleInputKeyDown(this)"
                         placeholder="Press enter to add new field" />
                     <div class="multiple-container"></div>
+                    <img class="custom-field-image-preview" src="https://i.imgur.com/k5hsRTh.png">
                     
                 </div>
             </div>
@@ -64,7 +78,8 @@
         <div id="section3" data-id="3" style="display: none;" class="row">
             <div class="col">
                 <div class="mb-3">
-                    <button type="button" onclick="download('text/plain', 'csv.txt')" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Download your CSV Template and enter your people</button>
+                    <label for="file" class="form-label">CSV Templated created with both default and custom headers.</label>
+                    <button type="button" onclick="download('text/plain', 'csv.txt')" class="btn btn-lg btn-primary w-100 mx-0 mb-2 fs-15">Click to download template and fill people data as CSV</button>
                 </div>
             </div>
         </div>
@@ -72,8 +87,9 @@
         <div id="section4" data-id="4" style="display: none;" class="row">
             <div class="col">
                 <div class="mb-3">
-                    <input type="file" name="file" id="file"> 
-                    <button id="finishSetup" style="display:none;" type="button" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Upload succesfully finished, Click to complete setup</button>
+                    <label for="file" class="form-label">Select CSV, upload process will be started automatically</label>
+                    <input type="file" class="btn btn-lg btn-primary w-100 mx-0 mb-2 fs-15" name="file" id="file"> 
+                    <button id="finishSetup" style="display:none;" type="button" class="btn btn-lg btn-success w-100 mx-0 mb-2 fs-15">Upload succesfully finished, Click to complete setup</button>
                 </div>
             </div>
         </div>
@@ -100,6 +116,7 @@
 <script>
 
     window.settings = {};
+    window.settings.customFields = [];
 
     function handleFileSelect() {
         const reader = new FileReader()
@@ -126,6 +143,8 @@
         }
         window.settings.headers = headers;
         window.settings.people = people;
+        $('#file').hide();
+        $('#prev').hide();
         $('#finishSetup').show();
     }
 
