@@ -22,6 +22,14 @@ function renderMenu() {
 
 function firstSetup() {
 
+    const firstSetupCompleted = isFirstSetupCompleted();
+    
+    if(firstSetupCompleted) {
+        const ui = SpreadsheetApp.getUi();
+
+    }
+
+    
     const firstSetupHtml = HtmlService
         .createTemplateFromFile('src/views/first-setup')
         .evaluate()
@@ -32,7 +40,7 @@ function firstSetup() {
         .setWidth(MODAL_SETTINGS.FirstSetup.width)
         .setHeight(MODAL_SETTINGS.FirstSetup.height);
 
-    SpreadsheetApp.getUi().showModalDialog(template, 'First Setup');
+    SpreadsheetApp.getUi().showModalDialog(template, 'Setup');
 }
 
 function createOneToOne() {
