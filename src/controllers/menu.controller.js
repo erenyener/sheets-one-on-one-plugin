@@ -33,8 +33,8 @@ function firstSetup() {
 
     const template = HtmlService.createTemplate(firstSetupHtml)
         .evaluate()
-        .setWidth(600)
-        .setHeight(300);
+        .setWidth(MODAL_SETTINGS.FirstSetup.width)
+        .setHeight(MODAL_SETTINGS.FirstSetup.height);
 
     SpreadsheetApp.getUi().showModalDialog(template, 'First Setup');
 }
@@ -152,8 +152,8 @@ function openOneToOneModal(personName, row, lastOneToOne, spreadSheetLink) {
     const template = HtmlService.createTemplate(modalHtml +
         "<script>window.stringifiedData = " + JSON.stringify(data) + "</script>")
         .evaluate()
-        .setWidth(1100)
-        .setHeight(700);
+        .setWidth(MODAL_SETTINGS.OneOnOne.width)
+        .setHeight(MODAL_SETTINGS.OneOnOne.height);
 
 
     SpreadsheetApp.getUi().showModalDialog(template, 'Create 1-1 (' + personName + ')');
