@@ -1,27 +1,23 @@
 function onOpen() {
     const firstSetupCompleted = isFirstSetupCompleted();
-    renderMenu(firstSetupCompleted);
+    
+    renderMenu();
 
-    if(firstSetupCompleted) {
+    if (firstSetupCompleted) {
         setRemainingDatesForNextOneOnOne();
     }
 
 }
 
-function renderMenu(isFirstSetupCompleted) {
+function renderMenu() {
 
     const ui = SpreadsheetApp.getUi();
 
-    if (!isFirstSetupCompleted) {
-        ui.createMenu('1-1')
-            .addItem('First Setup', 'firstSetup')
-            .addToUi();
-    }
-    else {
-        ui.createMenu('1-1')
-            .addItem('Do 1-1', 'createOneToOne')
-            .addToUi();
-    }
+    ui.createMenu('1-1')
+        .addItem('Setup', 'firstSetup')
+        .addItem('Do 1-1', 'createOneToOne')
+        .addItem('Help', 'help')
+        .addToUi();
 }
 
 function firstSetup() {
@@ -37,32 +33,6 @@ function firstSetup() {
         .setHeight(MODAL_SETTINGS.FirstSetup.height);
 
     SpreadsheetApp.getUi().showModalDialog(template, 'First Setup');
-}
-
-function setRemainingDatesForNextOneOnOne() {
-
-    const dateTimeHelper = new DateTimeHelper();
-    const cellHelper = new CellHelper();
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
-    const lastColumn = sheet.getLastColumn();
-    const peopleRange = sheet.getRange(2, 1, sheet.getLastRow(), lastColumn);
-    const peopleDatas = peopleRange.getValues();
-
-    peopleDatas.forEach((personData, index) => {
-
-        Logger.log(personData)
-        const person = {
-            name: personData[0],
-            lastOneToOneDate: personData[lastColumn - 4]
-        };
-
-        const globalDateForLastOneOnOne = new Date(person.lastOneToOneDate).toLocaleDateString('en-GB')
-        const remainingDaysToNextOneOnOne = dateTimeHelper.getDayDifferenceBetweenDates(globalDateForLastOneOnOne, new Date());
-        
-        if(person.name) {
-            cellHelper.setCellValue(index + 2, lastColumn, remainingDaysToNextOneOnOne, SHEET_NAMES.OneToOnes);
-        }
-    })
 }
 
 function createOneToOne() {
@@ -101,6 +71,37 @@ function createOneToOne() {
     }
 
 }
+
+function help() {
+    
+}
+
+function setRemainingDatesForNextOneOnOne() {
+
+    const dateTimeHelper = new DateTimeHelper();
+    const cellHelper = new CellHelper();
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
+    const lastColumn = sheet.getLastColumn();
+    const peopleRange = sheet.getRange(2, 1, sheet.getLastRow(), lastColumn);
+    const peopleDatas = peopleRange.getValues();
+
+    peopleDatas.forEach((personData, index) => {
+
+        Logger.log(personData)
+        const person = {
+            name: personData[0],
+            lastOneToOneDate: personData[lastColumn - 4]
+        };
+
+        const globalDateForLastOneOnOne = new Date(person.lastOneToOneDate).toLocaleDateString('en-GB')
+        const remainingDaysToNextOneOnOne = dateTimeHelper.getDayDifferenceBetweenDates(globalDateForLastOneOnOne, new Date());
+
+        if (person.name) {
+            cellHelper.setCellValue(index + 2, lastColumn, remainingDaysToNextOneOnOne, SHEET_NAMES.OneToOnes);
+        }
+    })
+}
+
 
 function isFirstSetupCompleted() {
     try {
