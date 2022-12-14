@@ -90,6 +90,8 @@ function setRemainingDatesForNextOneOnOne() {
 
     const dateTimeHelper = new DateTimeHelper();
     const cellHelper = new CellHelper();
+    const userProperties = PropertiesService.getUserProperties();
+    const cycletime = parseInt(userProperties.getProperty('CYCLE_TIME');
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
     const lastColumn = sheet.getLastColumn();
     const peopleRange = sheet.getRange(2, 1, sheet.getLastRow(), lastColumn);
@@ -97,17 +99,24 @@ function setRemainingDatesForNextOneOnOne() {
 
     peopleDatas.forEach((personData, index) => {
 
-        Logger.log(personData)
         const person = {
             name: personData[0],
             lastOneToOneDate: personData[lastColumn - 4]
         };
 
-        const globalDateForLastOneOnOne = new Date(person.lastOneToOneDate).toLocaleDateString('en-GB')
-        const remainingDaysToNextOneOnOne = dateTimeHelper.getDayDifferenceBetweenDates(globalDateForLastOneOnOne, new Date());
+        const remainingDaysToNextOneOnOne = person.lastOneToOneDate 
+            ? dateTimeHelper.getDayDifferenceBetweenDates(person.lastOneToOneDate, new Date()) 
+            : cycletime;
+
+        Logger.log("----");
+        Logger.log(person.name)
+        Logger.log(remainingDaysToNextOneOnOne)
+        Logger.log(cycletime)
+        Logger.log("----");
 
         if (person.name) {
-            cellHelper.setCellValue(index + 2, lastColumn, remainingDaysToNextOneOnOne, SHEET_NAMES.OneToOnes);
+            const remainingDays = isNaN(remainingDaysToNextOneOnOne) ? 0 : (cycletime - remainingDaysToNextOneOnOne);
+            cellHelper.setCellValue(index + 2, lastColumn, remainingDays, SHEET_NAMES.OneToOnes);
         }
     })
 }

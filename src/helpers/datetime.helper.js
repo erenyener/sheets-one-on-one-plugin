@@ -12,8 +12,8 @@ DateTimeHelper.prototype.getCurrentDate =  function() {
   }
   
   DateTimeHelper.prototype.getCurrentDateWithHourAndMinuteAndSeconds = function() {
-    let date = new Date().toLocaleDateString("tr", {year:"numeric", day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit", second:"2-digit"});
-    
+    // let date = new Date().toLocaleDateString("tr", {year:"numeric", day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit", second:"2-digit"});
+    let date = new Date().toISOString();
     return date;
   }
   

@@ -31,7 +31,7 @@ function setUserSettings(formData) {
 
 function setOneonOneSheetHeaders(oneOnOneSheet, customHeaders) {
     customHeaders.shift();
-    const defaultHeaders = ["Last 1-1 Date", "SpreadSheet", "1-1 Status", "Days Left for Next 1-1"]
+    const defaultHeaders = ["Last 1-1 Date (YYYY-MM-DD)", "SpreadSheet", "1-1 Status", "Days Left for Next 1-1"]
     const allHeaders = ["Name", ...customHeaders.map(w => w.charAt(0).toUpperCase() + w.slice(1)), ...defaultHeaders.map(w => w.charAt(0).toUpperCase() + w.slice(1))]
 
     oneOnOneSheet.appendRow(allHeaders);

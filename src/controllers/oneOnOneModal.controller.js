@@ -10,7 +10,6 @@ function processFormOneOnOne(formObject) {
       return false;
     }
     
-    Logger.log(formObject)
     const result = oneOnOneService.saveOneToOne(formObject);
 
     if(result.isSuccess) {
