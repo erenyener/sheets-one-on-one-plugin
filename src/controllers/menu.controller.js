@@ -13,10 +13,12 @@ function renderMenu() {
 
     const ui = SpreadsheetApp.getUi();
 
-    ui.createMenu('1-1')
+    ui.createMenu('1-1 Helper')
         .addItem('Setup', 'firstSetup')
         .addItem('Do 1-1', 'createOneToOne')
-        .addItem('Help', 'help')
+        .addSubMenu(ui.createMenu('Help')
+          .addItem('Help 1', 'menuItem2')
+          .addItem('Help 1', 'menuItem2'))
         .addToUi();
 }
 
@@ -165,5 +167,5 @@ function openOneToOneModal(personName, row, lastOneToOne, spreadSheetLink) {
         .setHeight(MODAL_SETTINGS.OneOnOne.height);
 
 
-    SpreadsheetApp.getUi().showModalDialog(template, 'Create 1-1 (' + personName + ')');
+    SpreadsheetApp.getUi().showModalDialog(template, 'Do 1-1 with (' + personName + ')');
 }
