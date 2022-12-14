@@ -4,7 +4,7 @@ function onOpen() {
     renderMenu();
 
     if (firstSetupCompleted) {
-        setRemainingDatesForNextOneOnOne();
+        setRemainingDates();
     }
 
 }
@@ -14,11 +14,16 @@ function renderMenu() {
     const ui = SpreadsheetApp.getUi();
 
     ui.createMenu('1-1 Helper')
-        .addItem('Setup', 'firstSetup')
-        .addItem('Do 1-1', 'createOneToOne')
+        .addSubMenu(ui.createMenu('1-1')
+          .addItem('Do 1-1', 'createOneToOne')
+          .addItem('Sort By (Remaining Days)', 'sortByRemainingDays')
+          .addItem('Sort By (Name)', 'sortByName'))
         .addSubMenu(ui.createMenu('Help')
-          .addItem('Help 1', 'menuItem2')
-          .addItem('Help 1', 'menuItem2'))
+          .addItem('About', 'menuItem2')
+          .addItem('How to Setup', 'helpItem1')
+          .addItem('How to do 1-1', 'helpItem2')
+          .addItem('How to sort', 'helpItem3'))
+        .addItem('Setup', 'firstSetup')
         .addToUi();
 }
 
@@ -82,16 +87,31 @@ function createOneToOne() {
 
 }
 
-function help() {
-    
+function sortByRemainingDays() {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
+    const last = sheet.getLastColumn();
+    sort(last);
 }
 
-function setRemainingDatesForNextOneOnOne() {
+function sortByName() {
+    sort(1);
+}
 
+function sort(columnIndex) {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
+    const lastRow = sheet.getLastRow();
+    const lastColumn = sheet.getLastColumn();
+    const range = sheet.getRange(2, 1, lastRow, lastColumn);
+    range.sort({column: columnIndex, ascending: true});
+}
+
+function setRemainingDates() {
+
+    const oneOnOneService = new OneOnOneService();
     const dateTimeHelper = new DateTimeHelper();
     const cellHelper = new CellHelper();
     const userProperties = PropertiesService.getUserProperties();
-    const cycletime = parseInt(userProperties.getProperty('CYCLE_TIME');
+    const cycletime = parseInt(userProperties.getProperty('CYCLE_TIME'));
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
     const lastColumn = sheet.getLastColumn();
     const peopleRange = sheet.getRange(2, 1, sheet.getLastRow(), lastColumn);
@@ -104,23 +124,29 @@ function setRemainingDatesForNextOneOnOne() {
             lastOneToOneDate: personData[lastColumn - 4]
         };
 
-        const remainingDaysToNextOneOnOne = person.lastOneToOneDate 
-            ? dateTimeHelper.getDayDifferenceBetweenDates(person.lastOneToOneDate, new Date()) 
+        const dayDiffBetweenTodayAndLastOneOnOne = person.lastOneToOneDate 
+            ? (dateTimeHelper.getDayDifferenceBetweenDates(new Date(person.lastOneToOneDate), new Date()) - 1) 
             : cycletime;
 
-        Logger.log("----");
-        Logger.log(person.name)
-        Logger.log(remainingDaysToNextOneOnOne)
-        Logger.log(cycletime)
-        Logger.log("----");
-
         if (person.name) {
-            const remainingDays = isNaN(remainingDaysToNextOneOnOne) ? 0 : (cycletime - remainingDaysToNextOneOnOne);
+            const realRemainingDays = isNaN(dayDiffBetweenTodayAndLastOneOnOne) ? 0 : (cycletime - dayDiffBetweenTodayAndLastOneOnOne);
+            const remainingDays = realRemainingDays < 0 ? 0: realRemainingDays;
+
+            const bgColor = oneOnOneService.getBgColorForRemainingDays(cycletime, remainingDays);
             cellHelper.setCellValue(index + 2, lastColumn, remainingDays, SHEET_NAMES.OneToOnes);
+            cellHelper.setCellBackgroundColor(index + 2, lastColumn, bgColor, SHEET_NAMES.OneToOnes);
         }
+
+        
     })
+
+    
 }
 
+
+function help() {
+    
+}
 
 function isFirstSetupCompleted() {
     try {

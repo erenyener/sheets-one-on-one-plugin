@@ -13,6 +13,11 @@ const MODAL_SETTINGS = {
     "FirstSetup": {
         "width": 600,
         "height" : 300
-    },
+    }
+}
 
+const COLOR_SETTINGS = {
+    SUCCESS: "#d9ead3",
+    ALERT: "#f5cbcc",
+    WARN: "#fff3cc"
 }

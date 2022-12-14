@@ -70,6 +70,23 @@ OneOnOneService.prototype.getLastOneToOne = function(spreadSheetLink) {
     }
   }
 
+  OneOnOneService.prototype.getBgColorForRemainingDays = function(cycletime, remainingDays) {
+
+    const alertPoint = cycletime/3;
+    const warnPoint = (cycletime/3)*2;
+
+    if(remainingDays <= alertPoint) {
+        return COLOR_SETTINGS.ALERT
+    }
+    else if(remainingDays <= warnPoint) {
+        return COLOR_SETTINGS.WARN
+    }
+
+    return COLOR_SETTINGS.SUCCESS;
+
+
+  }
+
   function getOneToOneAppendList(formObject) {
 
     let appendList = [];

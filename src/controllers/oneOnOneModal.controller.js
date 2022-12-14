@@ -16,6 +16,7 @@ function processFormOneOnOne(formObject) {
         cellHelper.setCellValue(result.personRowNumber, lastColumn-1, result.oneOnOneStatus, SHEET_NAMES.OneToOnes);
         cellHelper.setCellValue(result.personRowNumber, lastColumn-3, result.savedDate, SHEET_NAMES.OneToOnes);
         cellHelper.setCellValue(result.personRowNumber, lastColumn, userProperties.getProperty('CYCLE_TIME'), SHEET_NAMES.OneToOnes);
+        cellHelper.setCellBackgroundColor(result.personRowNumber, lastColumn, userProperties.getProperty('CYCLE_TIME'), SHEET_NAMES.OneToOnes);
     }
 
     return true;
