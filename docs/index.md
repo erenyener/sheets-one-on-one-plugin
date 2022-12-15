@@ -1,6 +1,28 @@
 
 
-### Terms of Use
+## Terms of Use
+
+TABLE OF CONTENTS
+1. AGREEMENT TO TERMS
+2. INTELLECTUAL PROPERTY RIGHTS
+3. USER REPRESENTATIONS
+4. PROHIBITED ACTIVITIES
+5. USER GENERATED CONTRIBUTIONS
+6. CONTRIBUTION LICENSE
+7. SUBMISSIONS
+8. SITE MANAGEMENT
+9. TERM AND TERMINATION
+10. MODIFICATIONS AND INTERRUPTIONS
+11. GOVERNING LAW
+12. DISPUTE RESOLUTION
+13. CORRECTIONS
+14. DISCLAIMER
+15. LIMITATIONS OF LIABILITY
+16. INDEMNIFICATION
+17. USER DATA
+18. ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES
+19. MISCELLANEOUS
+20. CONTACT US
 
 1. AGREEMENT TO TERMSThese Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and __________ ("Company," “we," “us," or “our”), concerning your access to and use of the __________ website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). You agree that by accessing the Site, you have read, understood, and agreed to be bound by all of these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY.Supplemental terms and conditions or documents that may be posted on the Site from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms of Use at any time and for any reason. We will alert you about any changes by updating the “Last updated” date of these Terms of Use, and you waive any right to receive specific notice of each such change. Please ensure that you check the applicable Terms every time you use our Site so that you understand which Terms apply. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Terms of Use by your continued use of the Site after the date such revised Terms of Use are posted.The information provided on the Site is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation or which would subject us to any registration requirement within such jurisdiction or country. Accordingly, those persons who choose to access the Site from other locations do so on their own initiative and are solely responsible for compliance with local laws, if and to the extent local laws are applicable.
 2. INTELLECTUAL PROPERTY RIGHTSUnless otherwise indicated, the Site is our proprietary\nproperty and all source code, databases, functionality, software, website\ndesigns, audio, video, text, photographs, and graphics on the Site\n(collectively, the “Content”) and the trademarks, service marks, and logos\ncontained therein (the “Marks”) are owned or controlled by us or licensed to\nus, and are protected by copyright and trademark laws and various other\nintellectual property rights and unfair competition laws of the United States, international copyright laws, and international conventions. The Content and the Marks are provided on the\nSite “AS IS” for your information and personal use only. Except as expressly provided in these Terms\nof Use, no part of the Site and no Content or Marks may be copied, reproduced,\naggregated, republished, uploaded, posted, publicly displayed, encoded,\ntranslated, transmitted, distributed, sold, licensed, or otherwise exploited\nfor any commercial purpose whatsoever, without our express prior written\npermission.Provided that you are eligible to use the Site, you are\ngranted a limited license to access and use the Site and to download or print a\ncopy of any portion of the Content to which you have properly gained access\nsolely for your personal, non-commercial use. We reserve all rights not\nexpressly granted to you in and to the Site, the Content and the Marks.
