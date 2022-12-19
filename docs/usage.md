@@ -49,6 +49,6 @@ In the last column you can see how many days left to next one on one. It will be
 
 <img src="https://i.imgur.com/kFWnaiC.png" border="3" width="600" >
 
-
+That's it, you can start doing your 1-1s now.
 
 
