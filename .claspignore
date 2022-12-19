@@ -1,4 +1,5 @@
 **/**
 .git
+.doc
 !src/**
 !appsscript.json
