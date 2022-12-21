@@ -50,8 +50,6 @@ Also you have notes section to get some notes which are not related to main topi
 You can get feedbacks from your team member, and write them under leadership feedbacks section. Multiple feedbacks are allowed.
 
 
-## Documentation 
-
 [Documentation](https://erenyener.github.io/sheets-one-on-one-plugin/) 
 
 For more information about 1-1 Manager, you can directly contact with me.
