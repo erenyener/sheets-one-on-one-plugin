@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 ### Short Description
 
 1-1 Manager for Google Sheets™ 
@@ -25,7 +16,8 @@ Don't you do your 1-1s regularly? Don't know what topics to talk about in 1-1s? 
 
 Create or open a sheet with Google Sheets™. With the Add-on enabled, you can import your person data and start 1-1s immediately.
 
-SETUP
+#### SETUP
+
 1-1 Manager has setup section on its menu. Setup flow has 3 main sections. 
 
 1- Settings: Cycle time and custom fields can be set in this section.
@@ -34,7 +26,7 @@ SETUP
 
 Once setup-finish button clicked, 1-1 sheet will be generated automatically by the add-on, and now you are ready to go.
 
-USAGE
+#### USAGE
 
 Choose row the person you want to do 1-1 and click 1-1 menu and click do 1-1, then, 1-1 Form will be opened for this person.
 
