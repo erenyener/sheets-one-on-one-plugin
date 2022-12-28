@@ -1,5 +1,5 @@
 
-<img src="https://lh3.googleusercontent.com/YmrCcn1diOGVptJ_WaPjuzS8ntoTtqSQxzflEgTHFT_xIrohTwAutM3dCDD6P3JRePA" border="3" width="600" >
+<img src="https://lh3.googleusercontent.com/YmrCcn1diOGVptJ_WaPjuzS8ntoTtqSQxzflEgTHFT_xIrohTwAutM3dCDD6P3JRePA" border="3" width="100" >
 
 ### Short Description
 
