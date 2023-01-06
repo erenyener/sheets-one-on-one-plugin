@@ -18,11 +18,6 @@ function renderMenu() {
           .addItem('Do 1-1', 'createOneToOne')
           .addItem('Sort By (Remaining Days)', 'sortByRemainingDays')
           .addItem('Sort By (Name)', 'sortByName'))
-        .addSubMenu(ui.createMenu('Help')
-          .addItem('About', 'menuItem2')
-          .addItem('How to Setup', 'helpItem1')
-          .addItem('How to do 1-1', 'helpItem2')
-          .addItem('How to sort', 'helpItem3'))
         .addItem('Setup', 'firstSetup')
         .addToUi();
 }
