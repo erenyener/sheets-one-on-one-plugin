@@ -105,8 +105,8 @@ function setRemainingDates() {
     const oneOnOneService = new OneOnOneService();
     const dateTimeHelper = new DateTimeHelper();
     const cellHelper = new CellHelper();
-    const userProperties = PropertiesService.getUserProperties();
-    const cycletime = parseInt(userProperties.getProperty('CYCLE_TIME'));
+    const documentProperties = PropertiesService.getDocumentProperties();
+    const cycletime = parseInt(documentProperties.getProperty('CYCLE_TIME'));
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAMES.OneToOnes);
     const lastColumn = sheet.getLastColumn();
     const peopleRange = sheet.getRange(2, 1, sheet.getLastRow(), lastColumn);
@@ -145,8 +145,8 @@ function help() {
 
 function isFirstSetupCompleted() {
     try {
-        const userProperties = PropertiesService.getUserProperties();
-        const firstSetupDone = userProperties.getProperty('FIRST_SETUP')
+        const documentProperties = PropertiesService.getDocumentProperties();
+        const firstSetupDone = documentProperties.getProperty('FIRST_SETUP')
         const firstSetupCompleted = firstSetupDone === "true";
         return firstSetupCompleted;
     }

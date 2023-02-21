@@ -22,9 +22,10 @@ function createOneOnOneSheet(formData) {
 
 function setUserSettings(formData) {
     
-    const userProperties = PropertiesService.getUserProperties();
-    userProperties.setProperty('CYCLE_TIME', formData.cycletime);
-    userProperties.setProperty('FIRST_SETUP', "true");
+    const documentProperties = PropertiesService.getDocumentProperties();
+
+    documentProperties.setProperty('CYCLE_TIME', formData.cycletime);
+    documentProperties.setProperty('FIRST_SETUP', "true");
 
 
 }
