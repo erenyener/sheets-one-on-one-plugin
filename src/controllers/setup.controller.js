@@ -72,29 +72,3 @@ function setOneOneOneSheetStyles(oneOnOneSheet) {
     headersRange.setBackgroundRGB(252, 229, 205);
     allRange.setBorder(true, true, true, true, true, true, "black", SpreadsheetApp.BorderStyle.SOLID);
 }
-
-
-
-
-
-/*
-
-Create 1-1 sheet
-Add Headers
-Add People
-
-Create Settings Sheet
-Add CycleTime
-Hide Settings Sheeet
-
-const data = {
-    cycletime: 12,
-    customFields: ['asdasd', 'asdasdasdasd'],
-    headers: ['name', 'asdasd', 'asdasdasdasd'],
-    people:
-        [['Eren', 'yener', 'test'],
-        ['Eren', 'yener3', 'testss'],
-        ['']]
-}
-
-*/
