@@ -271,12 +271,10 @@
       }
 
       function onKeyDown(element) {
-        if(event.key === 'Enter') {
-            const value = element.value;
-            const key = element.getAttribute('data-key');
-            window.interview[key] = value;
-            setPreview(key, value);
-        }
+        const value = element.value;
+        const key = element.getAttribute('data-key');
+        window.interview[key] = value;
+        setPreview(key, value);
       }
 
       function onSelectBoxChange(element) {
