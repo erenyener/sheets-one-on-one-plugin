@@ -154,8 +154,10 @@
         var a = document.createElement('a')
 
         const headers = ["name", ...window.settings.customFields];
+        const sampleData1 = ["name1", ...window.settings.customFields.map(i => i + "1")];
+        const sampleData2 = ["name2", ...window.settings.customFields.map(i => i + "2")];
 
-        const csv = `${headers}\n`;
+        const csv = `${headers}\r\n${sampleData1}\r\n${sampleData2}`;
 
         var blob = new Blob([csv], {type: mimeType})
         var url = URL.createObjectURL(blob)

@@ -390,21 +390,27 @@
           var feedbacksLastElement = document.getElementById('feedbacksLast');
 
           notes.forEach((note) => {
-            var node = document.createElement("li");
-            node.innerText = note;
-            notesLastElement.appendChild(node);
+            if(note && note != '') {
+              var node = document.createElement("li");
+              node.innerText = note;
+              notesLastElement.appendChild(node);
+            }
           })
           
           actions.forEach((action) => {
-            var node = document.createElement("li");
-            node.innerText = action;
-            actionsLastElement.appendChild(node);
+            if(action && action != '') {
+              var node = document.createElement("li");
+              node.innerText = action;
+              actionsLastElement.appendChild(node);
+            }
           })
 
-          feedbacks.forEach((action) => {
-            var node = document.createElement("li");
-            node.innerText = action;
-            feedbacksLastElement.appendChild(node);
+          feedbacks.forEach((feedback) => {
+            if(feedback && feedback != '') {
+              var node = document.createElement("li");
+              node.innerText = feedback;
+              feedbacksLastElement.appendChild(node);
+            }
           })
 
         },1000)
