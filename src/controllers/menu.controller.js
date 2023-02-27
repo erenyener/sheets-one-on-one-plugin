@@ -14,10 +14,7 @@ function renderMenu() {
     const ui = SpreadsheetApp.getUi();
 
     ui.createMenu('1-1 Helper')
-        .addSubMenu(ui.createMenu('1-1')
-          .addItem('Do 1-1', 'createOneToOne')
-          .addItem('Sort By (Remaining Days)', 'sortByRemainingDays')
-          .addItem('Sort By (Name)', 'sortByName'))
+        .addItem('Do 1-1', 'createOneToOne')
         .addItem('Setup', 'firstSetup')
         .addToUi();
 }
