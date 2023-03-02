@@ -221,6 +221,27 @@
       window.notes = [];
       window.actions = [];
 
+      function onGetUserFailure(error) {
+          const oneToOneForm = document.getElementById('oneToOneForm')
+          const oneToOneFormPreview = document.getElementById('oneToOneFormPreview')
+          const lastOneToOneBox = document.getElementById('lastOneToOneBox');
+          const emptyLastOneToOneBox = document.getElementById('emptyLastOneToOneBox');
+          const loader = document.getElementById('loader')
+          const profileError = document.getElementById('multiProfileError')
+          addClass(oneToOneForm, 'hide');
+          addClass(lastOneToOneBox, 'hide');
+          addClass(oneToOneFormPreview, 'hide');
+          addClass(emptyLastOneToOneBox, 'hide');
+          addClass(loader, 'hide');
+          removeClass(profileError, 'hide');
+      }
+
+      function onGetUserSuccess() {
+          console.log("SUCCESS")
+      }
+
+      google.script.run.withSuccessHandler(onGetUserSuccess).withFailureHandler(onGetUserFailure).withUserObject(this).getEmail();
+
       function preventFormSubmit() {
         var forms = document.querySelectorAll('form');
         for (var i = 0; i < forms.length; i++) {
@@ -421,6 +442,16 @@
   <body>
     <div class="container">
         <div id="loader" class="lds-facebook"><div></div><div></div><div></div></div>
+
+        <div id="multiProfileError" class="row hide">
+          <div class="col">
+              <div class="mb-3">
+                  :( You cannot continue because the chrome user and sheets user do not match.
+                  Login to chrome with the email you use for sheets or try incognito tab.
+              </div>
+          </div>
+        </div>
+
         <div id="oneToOneForm" class="section hide oh">
             <div class="section-title">1-1 Form</div>
             <div class="form-container">

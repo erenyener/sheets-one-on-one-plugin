@@ -102,6 +102,15 @@
             </div>
         </div>
 
+        <div id="multiProfileError" style="display: none;" class="row">
+            <div class="col">
+                <div class="mb-3">
+                    :( You cannot continue because the chrome user and sheets user do not match.
+                    Login to chrome with the email you use for sheets or try incognito tab.
+                </div>
+            </div>
+        </div>
+
         <div class="row footer">
             <div class="col">
                 <button id="prev" type="button" style="display: none;" class="btn btn-warning float-start">Prev</button>
@@ -235,7 +244,7 @@
         }
 
         $("#next").on("click", () => {
-
+            
             const activeSectionId = parseInt($('.active').attr("data-id"));
             const nextSectionId = activeSectionId + 1;
             const isFinalSection = $('#section' + (nextSectionId + 1)).length === 0;
@@ -281,16 +290,33 @@
 
         })
 
-        function onFailure(error) {
-            alert(error)
-        }
 
-        function onSuccess() {
+        function onSuccess(params) {
             $('#section4').removeClass('active');
             $('#section4').hide();
             $('#setupCompleted').show();
             $('#prev').hide();
         }
+
+        function onGetUserFailure(error) {
+            $('#section1').removeClass('active');
+            $('#section2').removeClass('active');
+            $('#section3').removeClass('active');
+            $('#section4').removeClass('active');
+            $('#section1').hide();
+            $('#section2').hide();
+            $('#section3').hide();
+            $('#section4').hide();
+            $('#multiProfileError').show();
+            $('#prev').hide();
+            $('#next').hide();
+        }
+
+        function onGetUserSuccess() {
+            console.log("SUCCESS")
+        }
+
+        google.script.run.withSuccessHandler(onGetUserSuccess).withFailureHandler(onGetUserFailure).withUserObject(this).getEmail();
 
         $('#finishSetup').on("click", () => {
             google.script.run.withSuccessHandler(onSuccess).processForm(window.settings);

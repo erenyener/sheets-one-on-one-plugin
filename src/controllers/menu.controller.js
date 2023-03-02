@@ -19,6 +19,10 @@ function renderMenu() {
         .addToUi();
 }
 
+function getEmail() {
+    return Session.getActiveUser().getEmail();
+  }
+
 function firstSetup() {
 
     const firstSetupCompleted = isFirstSetupCompleted();
